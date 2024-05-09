@@ -32,7 +32,7 @@ return {
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
-      automatic_setup = true,
+      automatic_installation = true,
 
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
@@ -44,7 +44,6 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         'debugpy',
       },
-      automatic_installation = false,
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!
@@ -88,6 +87,6 @@ return {
 
     -- Install golang specific config
     require('dap-go').setup()
-    require('dap-python').setup()
+    require('dap-python').setup '~/.local/share/nvim/mason/packages/debugpy/venv/bin/python'
   end,
 }
