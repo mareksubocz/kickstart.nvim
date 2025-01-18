@@ -1,5 +1,4 @@
 require 'custom.set'
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 require 'custom.keymaps'
 require 'custom.autocommands'
 
