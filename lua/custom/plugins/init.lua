@@ -3,9 +3,29 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+  -- {
+  --   'ellisonleao/gruvbox.nvim',
+  --   priority = 1000,
+  --   init = function()
+  --     require('gruvbox').setup {
+  --       overrides = {
+  --         SignColumn = { bg = 'none' },
+  --         Comment = { bg = 'none' },
+  --         -- ['@punctuation.bracket'] = { fg = '#fe8019' },
+  --         -- ['@punctuation.delimiter'] = { fg = '#fe8019' },
+  --         -- ['@punctuation.special'] = { fg = '#fe8019' },
+  --       },
+  --       transparent_mode = false,
+  --     }
+  --     -- vim.o.background="dark" -- system default
+  --     -- vim.cmd 'colorscheme gruvbox'
+  --   end,
+  -- },
   {
     'ellisonleao/gruvbox.nvim',
     priority = 1000,
+    config = true,
+    opts = ...,
     init = function()
       require('gruvbox').setup {
         overrides = {
@@ -36,9 +56,9 @@ return {
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd 'colorscheme tokyonight-night'
     end,
   },
-
   {
     'ggandor/leap.nvim',
     dependencies = {
@@ -48,15 +68,15 @@ return {
       require('leap').create_default_mappings()
     end,
   },
-  {
-    'github/copilot.vim',
-    config = function()
-      vim.keymap.set('i', '<Tab>', 'copilot#Accept("\\<CR>")', {
-        expr = true,
-        replace_keycodes = false,
-      })
-    end,
-  },
+  -- {
+  --   'github/copilot.vim',
+  --   config = function()
+  --     vim.keymap.set('i', '<Tab>', 'copilot#Accept("\\<CR>")', {
+  --       expr = true,
+  --       replace_keycodes = false,
+  --     })
+  --   end,
+  -- },
   {
     'gbprod/cutlass.nvim',
     opts = {
@@ -74,35 +94,6 @@ return {
     },
   },
   {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local harpoon = require 'harpoon'
-
-      harpoon.setup {}
-      vim.keymap.set('n', '<leader>a', function()
-        harpoon:list():append()
-      end)
-      vim.keymap.set('n', '<leader><leader>a', function()
-        harpoon.ui:toggle_quick_menu(harpoon:list())
-      end)
-
-      vim.keymap.set('n', '<leader>1', function()
-        harpoon:list():select(1)
-      end)
-      vim.keymap.set('n', '<leader>2', function()
-        harpoon:list():select(2)
-      end)
-      vim.keymap.set('n', '<leader>3', function()
-        harpoon:list():select(3)
-      end)
-      vim.keymap.set('n', '<leader>4', function()
-        harpoon:list():select(4)
-      end)
-    end,
-  },
-  {
     'kylechui/nvim-surround',
     version = '*', -- Use for stability; omit to use `main` branch for the latest features
     event = 'VeryLazy',
@@ -116,74 +107,18 @@ return {
     end,
   },
   'wellle/targets.vim',
-  {
-    'iamcco/markdown-preview.nvim',
-    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    ft = { 'markdown' },
-    build = function()
-      vim.fn['mkdp#util#install']()
-    end,
-  },
-  {
-    'windwp/nvim-autopairs',
-    -- Optional dependency
-    dependencies = { 'hrsh7th/nvim-cmp' },
-    config = function()
-      require('nvim-autopairs').setup {}
-      -- If you want to automatically add `(` after selecting a function or method
-      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-      local cmp = require 'cmp'
-      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
-    end,
-  },
   -- {
-  --   "HiPhish/rainbow-delimiters.nvim",
+  --   'windwp/nvim-autopairs',
+  --   -- Optional dependency
+  --   -- dependencies = { 'hrsh7th/nvim-cmp' },
   --   config = function()
-  --     local rainbow_delimiters = require'rainbow-delimiters'
-  --     vim.g.rainbow_delimiters = {
-  --       strategy = {
-  --         [''] = rainbow_delimiters.strategy['global'],
-  --         vim = rainbow_delimiters.strategy['local'],
-  --       },
-  --       query = {
-  --         [''] = 'rainbow-delimiters',
-  --         lua = 'rainbow-blocks',
-  --       },
-  --       priority = {
-  --         [''] = 110,
-  --         lua = 210,
-  --       },
-  --       highlight = {
-  --         'RainbowDelimiterViolet',
-  --         'RainbowDelimiterBlue',
-  --         'RainbowDelimiterCyan',
-  --         'RainbowDelimiterGreen',
-  --         'RainbowDelimiterYellow',
-  --         'RainbowDelimiterRed',
-  --         'RainbowDelimiterOrange',
-  --       },
-  --     }
-  --   end
-  -- }
-  {
-    'kdheepak/lazygit.nvim',
-    cmd = {
-      'LazyGit',
-      'LazyGitConfig',
-      'LazyGitCurrentFile',
-      'LazyGitFilter',
-      'LazyGitFilterCurrentFile',
-    },
-    -- optional for floating window border decoration
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    -- setting the keybinding for LazyGit with 'keys' is recommended in
-    -- order to load the plugin when the command is run for the first time
-    keys = {
-      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
-    },
-  },
+  --     require('nvim-autopairs').setup {}
+  --     -- If you want to automatically add `(` after selecting a function or method
+  --     local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+  --     local cmp = require 'cmp'
+  --     cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+  --   end,
+  -- },
   {
     'RRethy/vim-illuminate',
     config = function()
@@ -233,5 +168,92 @@ return {
 
       vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'open parent directory' })
     end,
+  },
+  'm-demare/hlargs.nvim',
+  {
+    'leath-dub/snipe.nvim',
+    keys = {
+      {
+        '<C-f>',
+        function()
+          require('snipe').open_buffer_menu()
+        end,
+        desc = 'Open Snipe buffer menu',
+      },
+    },
+    opts = {},
+  },
+  -- {
+  --   'yetone/avante.nvim',
+  --   event = 'VeryLazy',
+  --   lazy = false,
+  --   version = false, -- set this if you want to always pull the latest change
+  --   opts = {
+  --     -- add any opts here
+  --   },
+  --   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+  --   build = 'make',
+  --   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter',
+  --     'stevearc/dressing.nvim',
+  --     'nvim-lua/plenary.nvim',
+  --     'MunifTanjim/nui.nvim',
+  --     --- The below dependencies are optional,
+  --     'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+  --     'zbirenbaum/copilot.lua', -- for providers='copilot'
+  --     {
+  --       -- support for image pasting
+  --       'HakonHarnes/img-clip.nvim',
+  --       event = 'VeryLazy',
+  --       opts = {
+  --         -- recommended settings
+  --         default = {
+  --           embed_image_as_base64 = false,
+  --           prompt_for_file_name = false,
+  --           drag_and_drop = {
+  --             insert_mode = true,
+  --           },
+  --           -- required for Windows users
+  --           use_absolute_path = true,
+  --         },
+  --       },
+  --     },
+  --     {
+  --       -- Make sure to set this up properly if you have lazy=true
+  --       'MeanderingProgrammer/render-markdown.nvim',
+  --       opts = {
+  --         file_types = { 'markdown', 'Avante' },
+  --       },
+  --       ft = { 'markdown', 'Avante' },
+  --     },
+  --   },
+  -- },
+  {
+    'supermaven-inc/supermaven-nvim',
+    config = function()
+      require('supermaven-nvim').setup {}
+    end,
+  },
+  {
+    'saghen/blink.cmp',
+    dependencies = 'rafamadriz/friendly-snippets',
+
+    version = '*',
+    opts = {
+      keymap = {
+        preset = 'enter',
+        cmdline = {
+          preset = 'default',
+        },
+      },
+
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'mono',
+      },
+      signature = { enabled = true },
+    },
+    opts_extend = { 'sources.default' },
   },
 }
