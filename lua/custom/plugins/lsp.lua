@@ -1,5 +1,4 @@
 return {
-
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -7,9 +6,6 @@ return {
       { 'williamboman/mason.nvim', opts = {} }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-      -- Useful status updates for LSP.
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
     },
     config = function()
@@ -74,6 +70,7 @@ return {
               trim_text = true,
             }
           end, '[G]oto [R]eferences')
+          map('<leader>gr', vim.lsp.buf.references, '[G]oto [R]eferences original')
           -- map('gr', require('telescope.builtin').lsp_references { include_declaration = false }, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
