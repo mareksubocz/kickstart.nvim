@@ -22,13 +22,7 @@ vim.opt.backup = false
 vim.opt.swapfile = false
 vim.opt.autoread = true --auto-sync buffers from all nvim processes
 vim.opt.undofile = true
-if vim.fn.has 'mac' == 1 then
-  -- macOS specific configuration
-  vim.opt.undodir = '/Users/mareksubocz/.vim/undodir'
-elseif vim.fn.has 'unix' == 1 then
-  -- Linux specific configuration
-  vim.opt.undodir = '/home/mareksubocz/.vim/undodir'
-end
+vim.opt.undodir = vim.fn.expand '~/.vim/undodir'
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
@@ -72,3 +66,4 @@ vim.opt.scrolloff = 5
 vim.opt.hlsearch = true
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
+vim.g.python3_host_prog = vim.fn.expand '~/.pyenv/versions/pynvim/bin'
