@@ -39,7 +39,13 @@ vim.opt.backup = false
 vim.opt.swapfile = false
 vim.opt.autoread = true --auto-sync buffers from all nvim processes
 vim.opt.undofile = true
-vim.opt.undodir = '/home/mareksubocz/.vim/undodir'
+if vim.fn.has 'mac' == 1 then
+  -- macOS specific configuration
+  vim.opt.undodir = '/Users/mareksubocz/.vim/undodir'
+elseif vim.fn.has 'unix' == 1 then
+  -- Linux specific configuration
+  vim.opt.undodir = '/home/mareksubocz/.vim/undodir'
+end
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
