@@ -1,18 +1,28 @@
-function InitColorscheme()
-  vim.cmd.colorscheme 'gruvbox'
+function InitColorscheme(color)
+  color = color or 'gruvbox'
+  vim.cmd.colorscheme(color)
 end
 
 return {
   {
     'ellisonleao/gruvbox.nvim',
+    lazy = false,
     priority = 1000,
-    config = true,
-    opts = ...,
-    init = function()
+    config = function()
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = 'gruvbox',
+        callback = function()
+          vim.cmd [[
+            hi StatusLine guibg=#282828 guifg=#ebdbb2 gui=NONE cterm=NONE
+            hi StatusLineNC guibg=#282828 guifg=#a89984 gui=NONE cterm=NONE
+          ]]
+        end,
+      })
+
       require('gruvbox').setup {
         overrides = {
           SignColumn = { bg = 'none' },
-          Comment = { bg = 'none' },
+          -- Comment = { bg = 'none' },
           -- ['@punctuation.bracket'] = { fg = '#fe8019' },
           -- ['@punctuation.delimiter'] = { fg = '#fe8019' },
           -- ['@punctuation.special'] = { fg = '#fe8019' },
@@ -24,11 +34,9 @@ return {
   },
   {
     'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
       InitColorscheme()
     end,
+    priority = 1000,
   },
 }
